@@ -104,7 +104,7 @@ async def 탈퇴(ctx):
 @bot.command()
 async def 계좌(ctx):
     id = ctx.author.id
-    con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level=None)
+    con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
     cur = con.cursor()
     bank_list = ['너희은행', '민족은행', '은행나무', '참좋은행', '카카뱅크']
     msg_req = ctx.message.content[4:6]
@@ -112,15 +112,15 @@ async def 계좌(ctx):
     if msg_req == '개설' :
         check = gmser_check(id)
         if check == 0 :
-            embed = discord.Embed(title=':gift: 지원금', description='RG Stock 게임 서비스에 가입되어 있지 않습니다.', color=0xff0000)
-            embed.set_footer(text=f"{ctx.message.author.name} | RG Stock#0751", icon_url=ctx.message.author.avatar_url)
-            await ctx.send(embed=embed)
+            embed = discord.Embed(title = ':gift: 지원금', description = 'RG Stock 게임 서비스에 가입되어 있지 않습니다.', color = 0xff0000)
+            embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+            await ctx.send(embed = embed)
         elif check == 1 :
             check = acc_check(id)
             if check == 1 :
-                embed = discord.Embed(title=':closed_lock_with_key: 계좌개설', description='계좌가 이미 개설되었습니다.', color=0xff0000)
-                embed.set_footer(text=f"{ctx.message.author.name} | RG Stock#0751", icon_url=ctx.message.author.avatar_url)
-                await ctx.send(embed=embed)
+                embed = discord.Embed(title = ':closed_lock_with_key: 계좌개설', description = '계좌가 이미 개설되었습니다.', color = 0xff0000)
+                embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+                await ctx.send(embed = embed)
             elif check == 0 :
                 if msg_bank in bank_list :
                     id = str(id)

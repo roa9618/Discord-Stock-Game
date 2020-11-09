@@ -5,25 +5,25 @@ import datetime
 import sqlite3
 from discord.ext import commands
 
-bot = commands.Bot(command_prefix='!', help_command=None)  # 명령어 접두어 설정
+bot = commands.Bot(command_prefix = '!', help_command = None)  # 명령어 접두어 설정
 token = ("NzcxMjIwODg1Mzg1NzczMDY2.X5o9aw.uiczXOFyDlC7640BPZNbQGiYku8")  # Discord RG Stock bot 토큰값(※노출금지)
 
-def gmser_check(id):  # GM 서비스에 가입되어있는지 확인하는 함수
+def gmser_check(id) :  # GM 서비스에 가입되어있는지 확인하는 함수
     alr_exist = []
     con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
     cur = con.cursor()
     cur.execute("SELECT id FROM UserInfo WHERE UserInfo.id")
     rows = cur.fetchall()
-    for i in range(len(rows)):
+    for i in range(len(rows)) :
         ex = rows[i]
         alr_exist.append(ex[0])
-    if id not in alr_exist:
+    if id not in alr_exist :
         return 0
-    elif id in alr_exist:
+    elif id in alr_exist :
         return 1
     con.close()
 
-def bring_acc(id):  # 계좌 정보를 가져오는 함수
+def bring_acc(id) :  # 계좌 정보를 가져오는 함수
     alr_exist = []
     con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
     cur = con.cursor()
@@ -36,65 +36,65 @@ def bring_acc(id):  # 계좌 정보를 가져오는 함수
     money = alr_exist[3]
     return bank, acc_num, money
 
-def acc_check(id):  # 계좌가 개설되었는지 확인하는 함수
+def acc_check(id) :  # 계좌가 개설되었는지 확인하는 함수
     total = bring_acc(id)
     bank = total[0]
     acc_num = total[1]
     money = total[2]
-    if bank == 'NULL' and acc_num == 'NULL' and money == 'NULL':
+    if bank == 'NULL' and acc_num == 'NULL' and money == 'NULL' :
         return 0
-    elif bank != 'NULL' and acc_num != 'NULL' and money != 'NULL':
+    elif bank != 'NULL' and acc_num != 'NULL' and money != 'NULL' :
         return 1
 
 @bot.event  # Bot 온라인 접속 이벤트
-async def on_ready():
+async def on_ready() :
     print(f'부팅 성공: {bot.user.name}!')
     game = discord.Game("Beta Ver")  # ~~하는중에 표시
     await bot.change_presence(status = discord.Status.online, activity = game)
 
 @bot.command()
-async def help(ctx):
+async def help(ctx) :
     embed = discord.Embed(title = "도움말", description = "**!가입**\nRG Stock 게임 서비스에 가입할 수 있습니다.\n\n**!탈퇴**\nRG Stock 게임 서비스에서 탈퇴할 수 있습니다.\n\n**!계좌개설**\n계좌를 개설하여 주식, 금융거래가 가능합니다.\n\n**!계좌**\n계좌의 정보, 잔액을 확인할 수 있습니다.\n\n**!지원금**\n랜덤으로 1만원~5만원 사이의 돈을 받습니다.\n`잔고가 0원일 때 사용 가능`\n\n**!일**\n일을 하여 돈을 벌 수 있습니다.\n`쿨타임 : 5초`\n\n**!도박**\n도박을 할 수 있습니다.\n`!도박 <금액> or !도박 올인`\n\n**!송금**\n상대방에게 계좌이체를 할 수 있습니다.\n`!송금 <은행명> <계좌번호> <금액>`\n`수수료 : 10%`", color = 0xffc0cb)
     embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
     await ctx.send(embed = embed)
 
 @bot.command()
-async def 도움(ctx):
+async def 도움(ctx) :
     embed = discord.Embed(title = "도움말", description = "**!가입**\nRG Stock 게임 서비스에 가입할 수 있습니다.\n\n**!탈퇴**\nRG Stock 게임 서비스에서 탈퇴할 수 있습니다.\n\n**!계좌개설**\n계좌를 개설하여 주식, 금융거래가 가능합니다.\n\n**!계좌**\n계좌의 정보, 잔액을 확인할 수 있습니다.\n\n**!지원금**\n랜덤으로 1만원~5만원 사이의 돈을 받습니다.\n`잔고가 0원일 때 사용 가능`\n\n**!일**\n일을 하여 돈을 벌 수 있습니다.\n`쿨타임 : 5초`\n\n**!도박**\n도박을 할 수 있습니다.\n`!도박 <금액> or !도박 올인`\n\n**!송금**\n상대방에게 계좌이체를 할 수 있습니다.\n`!송금 <은행명> <계좌번호> <금액>`\n`수수료 : 10%`", color = 0xffc0cb)
     embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
     await ctx.send(embed = embed)
 
 @bot.command()
-async def 가입(ctx):
+async def 가입(ctx) :
     id = ctx.author.id
     con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
     cur = con.cursor()
     check = gmser_check(id)
     now = datetime.datetime.now()
     nowDatetime = now.strftime('%Y-%m-%d %H:%M:%S')
-    if check == 0:
+    if check == 0 :
         null = 'NULL'
         cur.execute("INSERT INTO UserInfo VALUES(?, ?, ?, ?, ?)", (id, null, null, null, nowDatetime,))
         embed = discord.Embed(title = ':wave: 가입', description = '성공적으로 RG Stock 게임 서비스에 가입되셨습니다.', color = 0xffc0cb)
         embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
         await ctx.send(embed = embed)
-    elif check == 1:
+    elif check == 1 :
         embed = discord.Embed(title = ':wave: 가입', description = '이미 RG Stock 게임 서비스에 가입되어 있습니다.', color = 0xff0000)
         embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
         await ctx.send(embed = embed)
     con.close()
 
 @bot.command()
-async def 탈퇴(ctx):
+async def 탈퇴(ctx) :
     id = ctx.author.id
     con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
     cur = con.cursor()
     check = gmser_check(id)
-    if check == 0:
+    if check == 0 :
         embed = discord.Embed(title = ':wave: 탈퇴', description = 'RG Stock 게임 서비스에 가입되어 있지 않습니다.', color = 0xff0000)
         embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
         await ctx.send(embed = embed)
-    elif check == 1:
+    elif check == 1 :
         cur.execute("DELETE FROM UserInfo WHERE id = ?", (id,))
         embed = discord.Embed(title = ':wave: 탈퇴', description = '성공적으로 RG Stock 게임 서비스에서 탈퇴되었습니다.\n`서비스를 다시 이용하시려면 !가입 명령어를 이용해 주세요.`', color = 0xffc0cb)
         embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
@@ -102,7 +102,7 @@ async def 탈퇴(ctx):
     con.close()
 
 @bot.command()
-async def 계좌(ctx):
+async def 계좌(ctx) :
     id = ctx.author.id
     con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
     cur = con.cursor()
@@ -163,30 +163,30 @@ async def 계좌(ctx):
     con.close()
 
 @bot.command()
-async def 지원금(ctx):
+async def 지원금(ctx) :
     id = ctx.author.id
     con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
     cur = con.cursor()
     check = gmser_check(id)
-    if check == 0:
+    if check == 0 :
         embed = discord.Embed(title = ':gift: 지원금', description = 'RG Stock 게임 서비스에 가입되어 있지 않습니다.', color = 0xff0000)
         embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
         await ctx.send(embed = embed)
-    elif check == 1:
+    elif check == 1 :
         check = acc_check(id)
         total = bring_acc(id)
         money = total[2]
-        if check == 0:
+        if check == 0 :
             embed = discord.Embed(title = ':gift: 지원금', description = '계좌가 개설되지 않았습니다.', color = 0xff0000)
             embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
             await ctx.send(embed = embed)
-        elif check == 1 and money == 0:
+        elif check == 1 and money == 0 :
             ex = random.randint(10000, 50000)
             cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (ex, id,))
             embed = discord.Embed(title = ':gift: 지원금', description = '지원금 `{}`원을 받았습니다.'.format(ex), color = 0xffc0cb)
             embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
             await ctx.send(embed = embed)
-        elif check == 1 and money != 0:
+        elif check == 1 and money != 0 :
             embed = discord.Embed(title = ':gift: 지원금', description = '계좌잔고가 0원일 때 이용 가능합니다.', color = 0xff0000)
             embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
             await ctx.send(embed = embed)
@@ -194,22 +194,22 @@ async def 지원금(ctx):
 
 @commands.cooldown(1, 5, commands.BucketType.user)
 @bot.command()
-async def 일(ctx):
+async def 일(ctx) :
     id = ctx.author.id
     con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
     cur = con.cursor()
     check = gmser_check(id)
-    if check == 0:
+    if check == 0 :
         embed = discord.Embed(title = ':gift: 지원금', description = 'RG Stock 게임 서비스에 가입되어 있지 않습니다.', color = 0xff0000)
         embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
         await ctx.send(embed = embed)
-    elif check == 1:
+    elif check == 1 :
         check = acc_check(id)
-        if check == 0:
+        if check == 0 :
             embed = discord.Embed(title = ':gift: 지원금', description = '계좌가 개설되지 않았습니다.', color = 0xff0000)
             embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
             await ctx.send(embed = embed)
-        elif check == 1:
+        elif check == 1 :
             total = bring_acc(id)
             money = total[2]
             ex = random.randint(1, 1000)
@@ -221,97 +221,80 @@ async def 일(ctx):
     con.close()
 
 @bot.command()
-async def 도박(ctx):
-    ex = 0
+async def 도박(ctx) :
     id = ctx.author.id
-    cmd = ctx.message.content[4:]
-    prob = 0
-    count = 0
-    alr_exist = []
-    alr_exist2 = []
     con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
     cur = con.cursor()
-    cur.execute("SELECT id FROM UserInfo WHERE UserInfo.id")
-    rows = cur.fetchall()
-    for row in rows:
-        ex = row
-        alr_exist.append(ex[0])
-        ex = 0
-    for i in range(len(alr_exist)):
-        if id != alr_exist[i]:
-            count = count + 1
-            continue
-        elif id == alr_exist[i]:
-            cur.execute("SELECT * FROM UserInfo WHERE id = ?", (id,))
-            rows = cur.fetchall()
-            for row in rows:
-                alr_exist2 = list(row)
-            id = alr_exist2[0]
-            bank = alr_exist2[1]
-            acc_num = alr_exist2[2]
-            money = alr_exist2[3]
-            if bank == 'NULL' and acc_num == 'NULL' and money == 'NULL':
-                embed = discord.Embed(title = ':money_with_wings: 도박', description = '계좌가 개설되지 않았습니다.', color = 0xff0000)
-                embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
-                await ctx.send(embed = embed)
-            elif bank != 'NULL' and acc_num != 'NULL' and money != 'NULL':
-                if cmd == "올인":
-                    if money == 0:
-                        embed = discord.Embed(title = ':money_with_wings: 도박', description = '돈이 부족합니다.', color = 0xff0000)
-                        embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
-                        await ctx.send(embed = embed)
-                    else:
-                        prob = random.randint(1, 2)
-                        if prob == 1:
-                            ex = money
-                            cal = money + ex
-                            cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (cal, id,))
-                            embed = discord.Embed(title = ':money_with_wings: 도박', description = '도박을 하여 {}원을 벌었습니다!'.format(ex), color = 0xffc0cb)
-                            embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
-                            await ctx.send(embed = embed)
-                        elif prob == 2:
-                            ex = money
-                            cal = money - ex
-                            cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (cal, id,))
-                            embed = discord.Embed(title = ':money_with_wings: 도박', description = '도박을 하여 {}원을 잃었습니다..'.format(ex), color = 0xffc0cb)
-                            embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
-                            await ctx.send(embed = embed)
-                elif cmd != "올인" and type(int(cmd)) == int and int(cmd) != 0:
-                    cmd = int(cmd)
-                    if money < cmd:
-                        embed = discord.Embed(title = ':money_with_wings: 도박', description = '돈이 부족합니다.', color = 0xff0000)
-                        embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
-                        await ctx.send(embed = embed)
-                    else:
-                        prob = random.randint(1, 2)
-                        if prob == 1:
-                            ex = cmd
-                            ex = int(ex)
-                            cal = money + ex
-                            cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (cal, id,))
-                            embed = discord.Embed(title = ':money_with_wings: 도박', description = '도박을 하여 {}원을 벌었습니다!'.format(ex), color = 0xffc0cb)
-                            embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
-                            await ctx.send(embed = embed)
-                        elif prob == 2:
-                            ex = cmd
-                            ex = int(ex)
-                            cal = money - ex
-                            cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (cal, id,))
-                            embed = discord.Embed(title = ':money_with_wings: 도박', description = '도박을 하여 {}원을 잃었습니다..'.format(ex), color = 0xffc0cb)
-                            embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
-                            await ctx.send(embed = embed)
-                elif int(cmd) == 0:
-                    embed = discord.Embed(title = ':money_with_wings: 도박', description = '도박에 걸 돈은 자연수여야 합니다.', color = 0xff0000)
-                    embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
-                    await ctx.send(embed = embed)
-    if count == len(alr_exist):
+    cmd = ctx.message.content[4:]
+    check = gmser_check(id)
+    if check == 0 :
         embed = discord.Embed(title = ':money_with_wings: 도박', description = 'RG Stock 게임 서비스에 가입되어 있지 않습니다.', color = 0xff0000)
         embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
         await ctx.send(embed = embed)
+    elif check == 1 :
+        check = acc_check(id)
+        if check == 0 :
+            embed = discord.Embed(title = ':money_with_wings: 도박', description = '계좌가 개설되지 않았습니다.', color = 0xff0000)
+            embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+            await ctx.send(embed = embed)
+        elif check == 1 :
+            total = bring_acc(id)
+            bank = total[0]
+            account = total[1]
+            money = total[2]
+            if cmd == '올인' :
+                if money == 0 :
+                    embed = discord.Embed(title = ':money_with_wings: 도박', description = '돈이 부족합니다.', color = 0xff0000)
+                    embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+                    await ctx.send(embed = embed)
+                else :
+                    prob = random.randint(1, 2)
+                    if prob == 1 :
+                        ex = money
+                        cal = money + ex
+                        cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (cal, id,))
+                        embed = discord.Embed(title = ':money_with_wings: 도박', description = '도박을 하여 {}원을 벌었습니다!'.format(ex), color = 0xffc0cb)
+                        embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+                        await ctx.send(embed = embed)
+                    elif prob == 2 :
+                        ex = money
+                        cal = money - ex
+                        cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (cal, id,))
+                        embed = discord.Embed(title = ':money_with_wings: 도박', description = '도박을 하여 {}원을 잃었습니다..'.format(ex), color = 0xffc0cb)
+                        embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+                        await ctx.send(embed = embed)
+            elif cmd != '올인' and type(int(cmd)) == int and int(cmd) != 0 :
+                cmd = int(cmd)
+                if money < cmd :
+                    embed = discord.Embed(title = ':money_with_wings: 도박', description = '돈이 부족합니다.', color = 0xff0000)
+                    embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+                    await ctx.send(embed = embed)
+                else :
+                    prob = random.randint(1, 2)
+                    if prob == 1 :
+                        ex = cmd
+                        ex = int(ex)
+                        cal = money + ex
+                        cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (cal, id,))
+                        embed = discord.Embed(title = ':money_with_wings: 도박', description = '도박을 하여 {}원을 벌었습니다!'.format(ex), color = 0xffc0cb)
+                        embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+                        await ctx.send(embed = embed)
+                    elif prob == 2 :
+                        ex = cmd
+                        ex = int(ex)
+                        cal = money - ex
+                        cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (cal, id,))
+                        embed = discord.Embed(title = ':money_with_wings: 도박', description = '도박을 하여 {}원을 잃었습니다..'.format(ex), color = 0xffc0cb)
+                        embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+                        await ctx.send(embed = embed)
+            elif int(cmd) == 0 :
+                embed = discord.Embed(title = ':money_with_wings: 도박', description = '도박에 걸 돈은 자연수여야 합니다.', color = 0xff0000)
+                embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+                await ctx.send(embed = embed)
     con.close()
 
 @bot.command()
-async def 송금(ctx):
+async def 송금(ctx) :
     ex = 0
     id = ctx.author.id
     alr_exist = []
@@ -321,26 +304,26 @@ async def 송금(ctx):
     cur = con.cursor()
     cur.execute("SELECT id FROM UserInfo WHERE UserInfo.id")
     rows = cur.fetchall()
-    for i in range(len(rows)):
+    for i in range(len(rows)) :
         ex = rows[i]
         alr_exist.append(ex[0])
         ex = 0
-    if id not in alr_exist:
+    if id not in alr_exist :
         embed = discord.Embed(title = ':envelope_with_arrow: 송금', description = 'RG Stock 게임 서비스에 가입되어 있지 않습니다.', color = 0xff0000)
         embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
         await ctx.send(embed = embed)
-    elif id in alr_exist:
+    elif id in alr_exist :
         cur.execute("SELECT * FROM UserInfo WHERE id = ?", (id,))
         rows = cur.fetchall()
         alr_exist2 = list(rows[0])
         bank = alr_exist2[1]
         acc_num = alr_exist2[2]
         money = alr_exist2[3]
-        if bank == 'NULL' and acc_num == 'NULL' and money == 'NULL':
+        if bank == 'NULL' and acc_num == 'NULL' and money == 'NULL' :
             embed = discord.Embed(title = ':envelope_with_arrow: 송금', description = '계좌가 개설되지 않았습니다.', color = 0xff0000)
             embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
             await ctx.send(embed = embed)
-        else:
+        else :
             req_bank = ctx.message.content[4:8]
             req_acc_num = ctx.message.content[9:24]
             req_money = ctx.message.content[25:]
@@ -351,22 +334,22 @@ async def 송금(ctx):
             check_bank = alr_exist3[1]
             check_acc_num = alr_exist3[2]
             check_money = alr_exist3[3]
-            if req_bank == check_bank and req_acc_num == check_acc_num:
+            if req_bank == check_bank and req_acc_num == check_acc_num :
                 fee = (int(req_money) // 10)
                 cal = int(req_money)
                 check_money = check_money + cal
                 money = money - (cal + fee)
-                if money >= 0:
+                if money >= 0 :
                     cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (money, id,))
                     cur.execute("UPDATE UserInfo SET money = ? WHERE id = ?", (check_money, check_id))
                     embed = discord.Embed(title = ':envelope_with_arrow: 송금 완료', description = '거래일 : `{}`\n\n출금계좌 : `{} {}`\n\n입금계좌 : `{} {}`\n\n이체금액 : `{}원`\n\n수수료 : `{}원`'.format(nowDatetime, bank, acc_num, req_bank, req_acc_num, req_money, fee), color = 0xffc0cb)
                     embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
                     await ctx.send(embed = embed)
-                elif money < 0:
+                elif money < 0 :
                     embed = discord.Embed(title = ':envelope_with_arrow: 송금 실패', description = '잔액이 부족합니다.', color = 0xff0000)
                     embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
                     await ctx.send(embed = embed)
-            else:
+            else :
                 embed = discord.Embed(title = ':envelope_with_arrow: 송금 실패', description = '은행 또는 계좌번호가 틀렸습니다.\n`은행 또는 계좌번호를 다시 확인해주세요.`', color = 0xff0000)
                 embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
                 await ctx.send(embed = embed)

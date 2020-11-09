@@ -243,8 +243,6 @@ async def 도박(ctx) :
             await ctx.send(embed = embed)
         elif check == 1 :
             total = bring_acc(id)
-            bank = total[0]
-            account = total[1]
             money = total[2]
             if cmd == '올인' :
                 if money == 0 :

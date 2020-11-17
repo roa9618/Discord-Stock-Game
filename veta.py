@@ -357,8 +357,4 @@ async def 송금(ctx) :
                 await ctx.send(embed = embed)
     con.close()
 
-@bot.command()
-async def test123(ctx) :
-    await ctx.send("test123")
-
 bot.run(token)

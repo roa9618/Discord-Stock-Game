@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="stock game data" uuid="9f59ec80-52a3-496d-99a3-ebc9aa3d8b62">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db</jdbc-url>
+    </data-source>
+  </component>
+</project>

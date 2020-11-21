@@ -53,6 +53,12 @@ async def on_ready() :
     await bot.change_presence(status = discord.Status.online, activity = game)
 
 @bot.command()
+async def ping(ctx) :
+    embed = discord.Embed(title = ":ping_pong:Pong!", description = "Latency : `{}`ms".format(round(bot.latency * 1000)), color = 0xa9dbea)
+    embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)
+    await ctx.send(embed = embed)
+
+@bot.command()
 async def help(ctx) :
     embed = discord.Embed(title = "도움말", description = "**!가입**\nRG Stock 게임 서비스에 가입할 수 있습니다.\n\n**!탈퇴**\nRG Stock 게임 서비스에서 탈퇴할 수 있습니다.\n\n**!계좌개설**\n계좌를 개설하여 주식, 금융거래가 가능합니다.\n\n**!계좌**\n계좌의 정보, 잔액을 확인할 수 있습니다.\n\n**!지원금**\n랜덤으로 1만원~5만원 사이의 돈을 받습니다.\n`잔고가 0원일 때 사용 가능`\n\n**!일**\n일을 하여 돈을 벌 수 있습니다.\n`쿨타임 : 5초`\n\n**!도박**\n도박을 할 수 있습니다.\n`!도박 <금액> or !도박 올인`\n\n**!송금**\n상대방에게 계좌이체를 할 수 있습니다.\n`!송금 <은행명> <계좌번호> <금액>`\n`수수료 : 10%`", color = 0xffc0cb)
     embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#0751", icon_url = ctx.message.author.avatar_url)

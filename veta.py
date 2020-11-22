@@ -3,7 +3,7 @@ import discord
 import random
 import datetime
 import sqlite3
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 bot = commands.Bot(command_prefix = '!', help_command = None)  # 명령어 접두어 설정
 token = ("Nzc5OTQzODA1NjM3MDk5NTMw.X7n5RQ.Bv-97-02tBbRJlhGfjMt5ZXoj0I")  # Discord RG Stock bot 토큰값(※노출금지)

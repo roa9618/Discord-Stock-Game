@@ -35,30 +35,6 @@ for i in range(len(company_name)) :
     elif up_down[i] == 'now' :
         now_stock_price[i] = now_stock_price[i]
 
-# 커맨드를 입력하여 돈을 버는 알고리즘
-while True :
-    a = input()
-    a = str(a)
-    if a == '!일' :
-        ex = random.randint(1000, 3000)
-        private_money = private_money + ex
-        print("임금 : {}원".format(ex))
-        ex = 0
-        print("잔액 : {}원".format(private_money))
-    else :
-        print("명령어가 인식되지 않습니다.")
-
-# 잔고가 0일 때 지원금을 받을 수 있는 알고리즘
-while True :
-    b = input()
-    b = str(b)
-    if b == '!지원금' :
-        if private_money == 0 :
-            ex = random.randint(10000, 50000)
-            private_money = private_money + ex
-            print("지원금 {}원을 받았습니다.".format(ex))
-            ex = 0
-        else :
-            print("지원금을 받을 수 없습니다. 잔고 : {}원".format(private_money))
-    else :
-        print("명령어가 인식되지 않습니다.")
+print(up_down)
+print(updown_price)
+print(now_stock_price)

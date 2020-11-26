@@ -46,6 +46,14 @@ def acc_check(id) :  # 계좌가 개설되었는지 확인하는 함수
     elif bank != 'NULL' and acc_num != 'NULL' and money != 'NULL' :
         return 1
 
+def now_stock_price() :
+    con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
+    cur = con.cursor()
+    cur.execute("SELECT * FROM Stock_Price")
+    rows = cur.fetchall()
+    now_price = list(rows[0])
+    return now_price
+
 @bot.event  # Bot 온라인 접속 이벤트
 async def on_ready() :
     print(f'부팅 성공: {bot.user.name}!')
@@ -362,5 +370,20 @@ async def 송금(ctx) :
                 embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#1639", icon_url = ctx.message.author.avatar_url)
                 await ctx.send(embed = embed)
     con.close()
+
+@bot.command()
+async def 주식(ctx) :
+    req = ctx.message.content[4:6]
+    if req == "차트" :
+        now_price = now_stock_price()
+        A = now_price[0]
+        B = now_price[1]
+        C = now_price[2]
+        D = now_price[3]
+        E = now_price[4]
+        F = now_price[5]
+        embed = discord.Embed(title = ':chart_with_upwards_trend:|주식 차트|:chart_with_downwards_trend:', description = '{} 기준\n```삼산테크 : {}\n따브류엠 : {}\n루이조선 : {}\n테수울라 : {}\n비뜨코인 : {}```'.format(F, A, B, C, D, E), color = 0xffc0cb)
+        embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#1639", icon_url = ctx.message.author.avatar_url)
+        await ctx.send(embed = embed)
 
 bot.run(token)

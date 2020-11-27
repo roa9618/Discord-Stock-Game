@@ -3,7 +3,7 @@ import datetime
 import random
 import time
 
-beforeDatetime = "2020-11-27 12:03:21"
+beforeDatetime = "2020-11-27 13:11:01"
 
 while True :
     now = datetime.datetime.now()
@@ -16,6 +16,7 @@ while True :
     nowprice = list(rows[0])
     up_down = [] # 주가의 상승 또는 하락을 저장하는 리스트
     up_down_plma = []
+    up_down_pic = []
     updown_price = [] # up_down의 결과에 따라 상승하거나 하락하게 될 가격을 저장하는 리스트
     ex = 0 #임시로 저장할 값이 있을 때 저장하는 변수
 
@@ -30,7 +31,7 @@ while True :
         up_down.append(ex)
         ex = 0
 
-    for i in up_down :
+    for i in up_down : # 주가의 상승과 하락을 플러스와 마이너스 기호로 나타내는 반복문
         if i == 'up' :
             up_down_plma.append('+')
         elif i == 'down' :
@@ -46,13 +47,29 @@ while True :
     cur.execute("UPDATE updown SET bitcoin = ? WHERE date = ?", (up_down_plma[4], beforeDatetime,))
     cur.execute("UPDATE updown SET date = ? WHERE date = ?", (up_down_plma[5], beforeDatetime,))
 
+    for i in up_down : # 주가의 상승과 하락을 상승모양과 하락모양으로 나타내는 반복문
+        if i == 'up' :
+            up_down_pic.append('▲')
+        elif i == 'down' :
+            up_down_pic.append('▼')
+        elif i == 'now' :
+            up_down_pic.append('─')
+    
+    up_down_pic.append(nowDatetime)
+    cur.execute("UPDATE updown_pic SET samsan_tech = ? WHERE date = ?", (up_down_pic[0], beforeDatetime,))
+    cur.execute("UPDATE updown_pic SET wm_enter = ? WHERE date = ?", (up_down_pic[1], beforeDatetime,))
+    cur.execute("UPDATE updown_pic SET rui_ship = ? WHERE date = ?", (up_down_pic[2], beforeDatetime,))
+    cur.execute("UPDATE updown_pic SET tesla = ? WHERE date = ?", (up_down_pic[3], beforeDatetime,))
+    cur.execute("UPDATE updown_pic SET bitcoin = ? WHERE date = ?", (up_down_pic[4], beforeDatetime,))
+    cur.execute("UPDATE updown_pic SET date = ? WHERE date = ?", (up_down_pic[5], beforeDatetime,))
+
     for i in range(len(nowprice) - 2) : # 주가의 상승하거나 하락할 가격을 정하는 반복문
-        ex = random.randint(100, 2000)
+        ex = random.randint(100, 3000)
         updown_price.append(ex)
         ex = 0
 
     for i in range(1) : # 비트코인의 상승하거나 하락할 가격을 정하는 반복문
-        ex = random.randint(1, 100000)
+        ex = random.randint(1, 300000)
         updown_price.append(ex)
         ex = 0
 
@@ -65,7 +82,7 @@ while True :
                 nowprice[i] = 1
         elif up_down[i] == 'now' :
             continue
-        
+
     nowprice[5] = nowDatetime
     cur.execute("UPDATE Stock_Price SET samsan_tech = ? WHERE Change_time = ?", (nowprice[0], beforeDatetime,))
     cur.execute("UPDATE Stock_Price SET wm_enter = ? WHERE Change_time = ?", (nowprice[1], beforeDatetime,))

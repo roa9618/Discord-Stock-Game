@@ -431,7 +431,7 @@ async def 주식(ctx) :
         id = ctx.author.id
         check = gmser_check(id)
         if check == 1 :
-            embed = discord.Embed(title = ':chart_with_upwards_trend: | RG 주식 차트 | :chart_with_downwards_trend:', description = '{} 기준\n```{} 삼산테크    {} ({}  {})\n{} 따브류엠    {} ({}  {})\n{} 루이조선    {} ({}  {})\n{} 테수울라    {} ({}  {})\n{} 비뜨코인    {} ({}  {})```'.format(F, a, A, aA, aaa, b, B, bB, bbb, c, C, cC, ccc, d, D, dD, ddd, e, E, eE, eee), color = 0xffc0cb)
+            embed = discord.Embed(title = ':chart_with_upwards_trend: | RG 주식 차트 | :chart_with_downwards_trend:', description = '{} 기준\n```{} 삼산테크    {}    ({}  {})\n{} 따브류엠    {}    ({}  {})\n{} 루이조선    {}    ({}  {})\n{} 테수울라    {}    ({}  {})\n{} 비뜨코인    {}    ({}  {})```'.format(F, a, A, aA, aaa, b, B, bB, bbb, c, C, cC, ccc, d, D, dD, ddd, e, E, eE, eee), color = 0xffc0cb)
             embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#1639", icon_url = ctx.message.author.avatar_url)
             await ctx.send(embed = embed)
         elif check == 0 :

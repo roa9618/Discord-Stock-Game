@@ -1,9 +1,9 @@
-up import sqlite3
+import sqlite3
 import datetime
 import random
 import time
 
-beforeDatetime = "2020-11-27 13:18:48"
+beforeDatetime = "2020-11-28 18:30:05"
 
 while True :
     now = datetime.datetime.now()

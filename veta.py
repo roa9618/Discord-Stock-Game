@@ -55,6 +55,33 @@ def now_stock_price() :
     con.close()
     return now_price
 
+def stock_updown_pic() :
+    con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
+    cur = con.cursor()
+    cur.execute("SELECT * FROM updown_pic")
+    rows = cur.fetchall()
+    ex = list(rows[0])
+    con.close()
+    return ex
+
+def stock_updown_giho() :
+    con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
+    cur = con.cursor()
+    cur.execute("SELECT * FROM updown")
+    rows = cur.fetchall()
+    ex = list(rows[0])
+    con.close()
+    return ex
+
+def updown_price() :
+    con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
+    cur = con.cursor()
+    cur.execute("SELECT * FROM updown_price")
+    rows = cur.fetchall()
+    ex = list(rows[0])
+    con.close()
+    return ex
+
 @bot.event  # Bot 온라인 접속 이벤트
 async def on_ready() :
     print(f'부팅 성공: {bot.user.name}!')
@@ -374,7 +401,7 @@ async def 송금(ctx) :
 
 @bot.command()
 async def 주식(ctx) :
-    req = ctx.message.content[4:6]
+    req = ctx.message.content[4:]
     if req == "차트" :
         now_price = now_stock_price()
         A = now_price[0]
@@ -383,8 +410,33 @@ async def 주식(ctx) :
         D = now_price[3]
         E = now_price[4]
         F = now_price[5]
-        embed = discord.Embed(title = ':chart_with_upwards_trend:|주식 차트|:chart_with_downwards_trend:', description = '{} 기준\n```삼산테크 : {}\n따브류엠 : {}\n루이조선 : {}\n테수울라 : {}\n비뜨코인 : {}```'.format(F, A, B, C, D, E), color = 0xffc0cb)
-        embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#1639", icon_url = ctx.message.author.avatar_url)
-        await ctx.send(embed = embed)
+        price_updown_pic = stock_updown_pic()
+        a = price_updown_pic[0]
+        b = price_updown_pic[1]
+        c = price_updown_pic[2]
+        d = price_updown_pic[3]
+        e = price_updown_pic[4]
+        price_updown_giho = stock_updown_giho()
+        aA = price_updown_giho[0]
+        bB = price_updown_giho[1]
+        cC = price_updown_giho[2]
+        dD = price_updown_giho[3]
+        eE = price_updown_giho[4]
+        price_updown = updown_price()
+        aaa = price_updown[0]
+        bbb = price_updown[1]
+        ccc = price_updown[2]
+        ddd = price_updown[3]
+        eee = price_updown[4]
+        id = ctx.author.id
+        check = gmser_check(id)
+        if check == 1 :
+            embed = discord.Embed(title = ':chart_with_upwards_trend: | RG 주식 차트 | :chart_with_downwards_trend:', description = '{} 기준\n```{} 삼산테크    {} ({}  {})\n{} 따브류엠    {} ({}  {})\n{} 루이조선    {} ({}  {})\n{} 테수울라    {} ({}  {})\n{} 비뜨코인    {} ({}  {})```'.format(F, a, A, aA, aaa, b, B, bB, bbb, c, C, cC, ccc, d, D, dD, ddd, e, E, eE, eee), color = 0xffc0cb)
+            embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#1639", icon_url = ctx.message.author.avatar_url)
+            await ctx.send(embed = embed)
+        elif check == 0 :
+            embed = discord.Embed(title = ':wave: 탈퇴', description = 'RG Stock 게임 서비스에 가입되어 있지 않습니다.', color = 0xff0000)
+            embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#1639", icon_url = ctx.message.author.avatar_url)
+            await ctx.send(embed = embed)
 
 bot.run(token)

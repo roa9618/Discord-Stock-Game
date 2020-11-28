@@ -3,7 +3,16 @@ import datetime
 import random
 import time
 
-beforeDatetime = "2020-11-28 19:01:55"
+def bring_befdate() :
+    con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
+    cur = con.cursor()
+    cur.execute("SELECT * FROM Stock_Price")
+    rows = cur.fetchall()
+    ex = list(rows[0])
+    con.close()
+    return ex[5]
+
+beforeDatetime = bring_befdate()
 
 while True :
     now = datetime.datetime.now()

@@ -404,34 +404,13 @@ async def 주식(ctx) :
     req = ctx.message.content[4:]
     if req == "차트" :
         now_price = now_stock_price()
-        A = now_price[0]
-        B = now_price[1]
-        C = now_price[2]
-        D = now_price[3]
-        E = now_price[4]
-        F = now_price[5]
         price_updown_pic = stock_updown_pic()
-        a = price_updown_pic[0]
-        b = price_updown_pic[1]
-        c = price_updown_pic[2]
-        d = price_updown_pic[3]
-        e = price_updown_pic[4]
         price_updown_giho = stock_updown_giho()
-        aA = price_updown_giho[0]
-        bB = price_updown_giho[1]
-        cC = price_updown_giho[2]
-        dD = price_updown_giho[3]
-        eE = price_updown_giho[4]
         price_updown = updown_price()
-        aaa = price_updown[0]
-        bbb = price_updown[1]
-        ccc = price_updown[2]
-        ddd = price_updown[3]
-        eee = price_updown[4]
         id = ctx.author.id
         check = gmser_check(id)
         if check == 1 :
-            embed = discord.Embed(title = ':chart_with_upwards_trend: | RG 주식 차트 | :chart_with_downwards_trend:', description = '{} 기준\n```{} 삼산테크    {}    ({}  {})\n{} 따브류엠    {}    ({}  {})\n{} 루이조선    {}    ({}  {})\n{} 테수울라    {}    ({}  {})\n{} 비뜨코인    {}    ({}  {})```'.format(F, a, A, aA, aaa, b, B, bB, bbb, c, C, cC, ccc, d, D, dD, ddd, e, E, eE, eee), color = 0xffc0cb)
+            embed = discord.Embed(title = ':chart_with_upwards_trend: | RG 주식 차트 | :chart_with_downwards_trend:', description = '{} 기준\n```{} 삼산테크    {}    ({}  {})\n{} 따브류엠    {}    ({}  {})\n{} 루이조선    {}    ({}  {})\n{} 테수울라    {}    ({}  {})\n{} 비뜨코인    {}    ({}  {})```'.format(now_price[5], price_updown_pic[0], now_price[0], price_updown_giho[0], price_updown[0], price_updown_pic[1], now_price[1], price_updown_giho[1], price_updown[1], price_updown_pic[2], now_price[2], price_updown_giho[2], price_updown[2], price_updown_pic[3], now_price[3], price_updown_giho[3], price_updown[3], price_updown_pic[4], now_price[4], price_updown_giho[4], price_updown[4]), color = 0xffc0cb)
             embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#1639", icon_url = ctx.message.author.avatar_url)
             await ctx.send(embed = embed)
         elif check == 0 :

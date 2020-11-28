@@ -126,6 +126,6 @@ while True :
     con.close()
 
     print("주가 변동 !")
-    print("삼산테크 : {}\n따브류엠 : {}\n루이조선 : {}\n테수울라 : {}\n비뜨코인 : {}".format(nowprice[0], nowprice[1], nowprice[2], nowprice[3], nowprice[4]))
+    print("삼산테크 : {}\n따브류엠 : {}\n루이조선 : {}\n테수울라 : {}\n비뜨코인 : {}\n".format(nowprice[0], nowprice[1], nowprice[2], nowprice[3], nowprice[4]))
 
     time.sleep(30)

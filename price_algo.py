@@ -1,4 +1,4 @@
-import sqlite3
+up import sqlite3
 import datetime
 import random
 import time

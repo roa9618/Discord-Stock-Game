@@ -402,12 +402,12 @@ async def 송금(ctx) :
 @bot.command()
 async def 주식(ctx) :
     req = ctx.message.content[4:]
+    id = ctx.author.id
     if req == "차트" :
         now_price = now_stock_price()
         price_updown_pic = stock_updown_pic()
         price_updown_giho = stock_updown_giho()
         price_updown = updown_price()
-        id = ctx.author.id
         check = gmser_check(id)
         if check == 1 :
             embed = discord.Embed(title = ':chart_with_upwards_trend: | RG 주식 차트 | :chart_with_downwards_trend:', description = '{} 기준\n```{} 삼산테크    {}    ({}  {})\n{} 따브류엠    {}    ({}  {})\n{} 루이조선    {}    ({}  {})\n{} 테수울라    {}    ({}  {})\n{} 비뜨코인    {}    ({}  {})```'.format(now_price[5], price_updown_pic[0], now_price[0], price_updown_giho[0], price_updown[0], price_updown_pic[1], now_price[1], price_updown_giho[1], price_updown[1], price_updown_pic[2], now_price[2], price_updown_giho[2], price_updown[2], price_updown_pic[3], now_price[3], price_updown_giho[3], price_updown[3], price_updown_pic[4], now_price[4], price_updown_giho[4], price_updown[4]), color = 0xffc0cb)

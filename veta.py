@@ -52,6 +52,7 @@ def now_stock_price() :
     cur.execute("SELECT * FROM Stock_Price")
     rows = cur.fetchall()
     now_price = list(rows[0])
+    con.close()
     return now_price
 
 @bot.event  # Bot 온라인 접속 이벤트

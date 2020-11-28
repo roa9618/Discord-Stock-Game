@@ -3,7 +3,7 @@ import datetime
 import random
 import time
 
-beforeDatetime = "2020-11-27 13:11:01"
+beforeDatetime = "2020-11-27 13:18:48"
 
 while True :
     now = datetime.datetime.now()
@@ -72,6 +72,14 @@ while True :
         ex = random.randint(1, 300000)
         updown_price.append(ex)
         ex = 0
+
+    updown_price.append(nowDatetime)
+    cur.execute("UPDATE updown_price SET samsan_tech = ? WHERE date = ?", (updown_price[0], beforeDatetime,))
+    cur.execute("UPDATE updown_price SET wm_enter = ? WHERE date = ?", (updown_price[1], beforeDatetime,))
+    cur.execute("UPDATE updown_price SET rui_ship = ? WHERE date = ?", (updown_price[2], beforeDatetime,))
+    cur.execute("UPDATE updown_price SET tesla = ? WHERE date = ?", (updown_price[3], beforeDatetime,))
+    cur.execute("UPDATE updown_price SET bitcoin = ? WHERE date = ?", (updown_price[4], beforeDatetime,))
+    cur.execute("UPDATE updown_price SET date = ? WHERE date = ?", (updown_price[5], beforeDatetime,))
 
     for i in range(len(nowprice) - 1) : # 상승과 하락, 가격을 적용하는 반복문
         if up_down[i] == 'up' :

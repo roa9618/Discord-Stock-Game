@@ -414,7 +414,7 @@ async def 주식(ctx) :
             embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#1639", icon_url = ctx.message.author.avatar_url)
             await ctx.send(embed = embed)
         elif check == 0 :
-            embed = discord.Embed(title = ':wave: 탈퇴', description = 'RG Stock 게임 서비스에 가입되어 있지 않습니다.', color = 0xff0000)
+            embed = discord.Embed(title = ':chart_with_upwards_trend: | RG 주식 차트 | :chart_with_downwards_trend:', description = 'RG Stock 게임 서비스에 가입되어 있지 않습니다.', color = 0xff0000)
             embed.set_footer(text = f"{ctx.message.author.name} | RG Stock#1639", icon_url = ctx.message.author.avatar_url)
             await ctx.send(embed = embed)
 

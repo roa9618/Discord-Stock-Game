@@ -3,7 +3,7 @@ import datetime
 import random
 import time
 
-beforeDatetime = "2020-11-28 18:30:05"
+beforeDatetime = "2020-11-28 19:01:55"
 
 while True :
     now = datetime.datetime.now()
@@ -74,11 +74,26 @@ while True :
         ex = 0
 
     updown_price.append(nowDatetime)
-    cur.execute("UPDATE updown_price SET samsan_tech = ? WHERE date = ?", (updown_price[0], beforeDatetime,))
-    cur.execute("UPDATE updown_price SET wm_enter = ? WHERE date = ?", (updown_price[1], beforeDatetime,))
-    cur.execute("UPDATE updown_price SET rui_ship = ? WHERE date = ?", (updown_price[2], beforeDatetime,))
-    cur.execute("UPDATE updown_price SET tesla = ? WHERE date = ?", (updown_price[3], beforeDatetime,))
-    cur.execute("UPDATE updown_price SET bitcoin = ? WHERE date = ?", (updown_price[4], beforeDatetime,))
+    if up_down[0] != 'now' :
+        cur.execute("UPDATE updown_price SET samsan_tech = ? WHERE date = ?", (updown_price[0], beforeDatetime,))
+    elif up_down[0] == 'now' :
+        cur.execute("UPDATE updown_price SET samsan_tech = ? WHERE date = ?", (0, beforeDatetime,))
+    if up_down[1] != 'now' :
+        cur.execute("UPDATE updown_price SET wm_enter = ? WHERE date = ?", (updown_price[1], beforeDatetime,))
+    elif up_down[1] == 'now' :
+        cur.execute("UPDATE updown_price SET wm_enter = ? WHERE date = ?", (0, beforeDatetime,))
+    if up_down[2] != 'now' :
+        cur.execute("UPDATE updown_price SET rui_ship = ? WHERE date = ?", (updown_price[2], beforeDatetime,))
+    elif up_down[2] == 'now' :
+        cur.execute("UPDATE updown_price SET rui_ship = ? WHERE date = ?", (0, beforeDatetime,))
+    if up_down[3] != 'now' :
+        cur.execute("UPDATE updown_price SET tesla = ? WHERE date = ?", (updown_price[3], beforeDatetime,))
+    elif up_down[3] == 'now' :
+        cur.execute("UPDATE updown_price SET tesla = ? WHERE date = ?", (0, beforeDatetime,))
+    if up_down[4] != 'now' :
+        cur.execute("UPDATE updown_price SET bitcoin = ? WHERE date = ?", (updown_price[4], beforeDatetime,))
+    elif up_down[4] == 'now' :
+        cur.execute("UPDATE updown_price SET bitcoin = ? WHERE date = ?", (0, beforeDatetime,))
     cur.execute("UPDATE updown_price SET date = ? WHERE date = ?", (updown_price[5], beforeDatetime,))
 
     for i in range(len(nowprice) - 1) : # 상승과 하락, 가격을 적용하는 반복문

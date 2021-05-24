@@ -1,4 +1,4 @@
-2020 Personal Programming Project.
+2020 Personal Programming Project - 1
 
 Using Discord Module to make Virtual Stock Game  
 Language : Python  

@@ -10,7 +10,7 @@ token = ("")  # Discord RG Stock bot 토큰값(※노출금지)
 
 def gmser_check(id) :  # GM 서비스에 가입되어있는지 확인하는 함수
     alr_exist = []
-    con = sqlite3.connect(r'', isolation_level = None)
+    con = sqlite3.connect(r'C:\Users\ykjrc\OneDrive\바탕 화면\코딩 작업파일\주식 게임\stock game data.db', isolation_level = None)
     cur = con.cursor()
     cur.execute("SELECT id FROM UserInfo WHERE UserInfo.id")
     rows = cur.fetchall()

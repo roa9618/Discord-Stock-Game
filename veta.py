@@ -6,7 +6,7 @@ import sqlite3
 from discord.ext import commands, tasks
 
 bot = commands.Bot(command_prefix = '!', help_command = None)  # 명령어 접두어 설정
-token = ("Nzc5OTQzODA1NjM3MDk5NTMw.X7n5RQ.Bv-97-02tBbRJlhGfjMt5ZXoj0I")  # Discord RG Stock bot 토큰값(※노출금지)
+token = ("")  # Discord RG Stock bot 토큰값(※노출금지)
 
 def gmser_check(id) :  # GM 서비스에 가입되어있는지 확인하는 함수
     alr_exist = []

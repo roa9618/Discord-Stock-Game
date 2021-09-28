@@ -30,12 +30,12 @@ while True :
     ex = 0 #임시로 저장할 값이 있을 때 저장하는 변수
 
     for i in range(len(nowprice) - 1) : # 랜덤으로 주가의 상승과 하락을 결정하는 반복문
-        ex = random.randint(1, 20)
-        if ex == 1 or ex == 2 or ex == 3 or ex == 4 or ex == 5 or ex == 6 or ex == 7 or ex == 8 :
+        ex = random.choices(range(1, 4), weights = [40, 40, 20])
+        if ex[0] == 1 :
             ex = 'up'
-        elif ex == 9 or ex == 10 or ex == 11 or ex == 12 or ex == 13 or ex == 14 or ex == 15 or ex == 16 :
+        elif ex[0] == 2 :
             ex = 'down'
-        elif ex == 17 or ex == 18 or ex == 19 or ex == 20 :
+        elif ex[0] == 3 :
             ex = 'now'
         up_down.append(ex)
         ex = 0
